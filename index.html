@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>📝 My Notes</h1>
+      <div class="header-actions">
+        <input type="text" id="search" placeholder="Search notes...">
+        <button id="dark-mode-toggle">🌙</button>
+      </div>
+      <p class="subtitle">Organize your thoughts beautifully</p>
+    </header>
+
+    <section class="note-input">
+      <input type="text" id="note-title" placeholder="Title..." />
+      <select id="note-category">
+        <option value="">Select Category</option>
+        <option value="Personal">Personal</option>
+        <option value="Work">Work</option>
+        <option value="Ideas">Ideas</option>
+        <option value="Reminders">Reminders</option>
+      </select>
+      <textarea id="note-content" rows="4" placeholder="Write your note here..."></textarea>
+      <div class="drawing-tools" id="drawing-tools" style="display: none;">
+        <button id="pen-tool" class="tool-btn active">✏️ Pen</button>
+        <button id="highlight-tool" class="tool-btn">🖍️ Highlight</button>
+        <button id="erase-tool" class="tool-btn">🧽 Erase</button>
+        <button id="undo-btn" class="tool-btn">↶ Undo</button>
+        <button id="redo-btn" class="tool-btn">↷ Redo</button>
+        <label for="color-picker">Pen Color:</label>
+        <input type="color" id="color-picker" value="#000000">
+        <label for="bg-color-picker">Background:</label>
+        <input type="color" id="bg-color-picker" value="#ffffff">
+        <label for="text-color-picker">Text Color:</label>
+        <input type="color" id="text-color-picker" value="#000000">
+      </div>
+      <canvas id="drawing-canvas" width="800" height="400" style="display: none; border: 1px solid #ccc; border-radius: 10px;"></canvas>
+      <div class="input-actions">
+        <button id="toggle-drawing-btn">🎨 Toggle Drawing</button>
+        <button id="add-note-btn">Add Note</button>
+        <button id="export-btn">Export Notes</button>
+      </div>
+    </section>
+
+    <section class="notes-grid" id="notes-grid">
+      <!-- Notes will appear here -->
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);  /* Softer, brighter gradient */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  transition: background 0.4s, color 0.4s;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 850px;
+  background: rgba(255, 255, 255, 0.9);  /* More solid white background */
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  transition: background 0.4s;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  color: #333;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 20px 0;
+}
+
+#search {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  margin-right: 10px;
+}
+
+#dark-mode-toggle {
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  border: none;
+  background: #6c63ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+}
+
+#dark-mode-toggle:hover {
+  background: #5a52d4;
+}
+
+.note-input {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.note-input select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.note-input select:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.input-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.input-actions button {
+  padding: 10px 20px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+}
+
+.input-actions button:hover {
+  background: #5a52d4;
+  transform: translateY(-2px);
+}
+
+.input-actions button:active {
+  transform: translateY(0);
+}
+
+.note-input input,
+.note-input textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.note-input input:focus,
+.note-input textarea:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.note-input button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+}
+
+.note-input button:hover {
+  background: #5a52d4;
+}
+
+.drawing-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.tool-btn {
+  padding: 8px 12px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.tool-btn:hover {
+  background: #e0e0e0;
+}
+
+.tool-btn.active {
+  background: #6c63ff;
+  color: white;
+  border-color: #6c63ff;
+}
+
+.drawing-tools label {
+  font-size: 0.9rem;
+  margin-right: 5px;
+}
+
+.drawing-tools input[type="color"] {
+  width: 40px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .app-container {
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #search {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .note-card {
+    padding: 15px;
+  }
+
+  .input-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-actions button {
+    width: 100%;
+  }
+}
+
+.note-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  border-left: 4px solid #6c63ff;  /* Added accent border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  word-wrap: break-word;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.note-card h2 {
+  font-size: 1.1rem;
+  color: #1a1a1a;  /* Darker text for better contrast */
+  font-weight: 600;
+}
+
+.note-card p {
+  color: #2d2d2d;  /* Darker text for better contrast */
+  margin-bottom: 8px;
+}
+
+.note-meta {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.action-btns {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.action-btns button {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 5px 8px;
+  color: white;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+.delete-btn { background: #ff4d4d; }
+.edit-btn { background: #00b894; }
+.share-btn { background: #0984e3; }
+
+.delete-btn:hover { background: #e04141; }
+.edit-btn:hover { background: #00976c; }
+.share-btn:hover { background: #076fd1; }
+
+/* Dark Mode Styles */
+body.dark {
+  background: linear-gradient(135deg, #2b5876, #4e4376);  /* Rich dark gradient */
+  color: #e0e0e0;
+}
+
+body.dark .app-container {
+  background: rgba(28, 28, 35, 0.95);  /* Darker, more solid background */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .note-card {
+  background: #2d2d3a;
+  border-left: 4px solid #6c63ff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .note-card h2 {
+  color: #ffffff;  /* Bright white text for dark theme */
+}
+
+body.dark .note-card p {
+  color: #e0e0e0;  /* Light grey text for dark theme */
+}
+
+body.dark input,
+body.dark textarea {
+  background: #1f1f28;
+  color: #ffffff;
+  border: 1px solid #3d3d4d;
+}
