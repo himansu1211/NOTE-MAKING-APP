@@ -342,3 +342,4 @@ if (textColorPicker) textColorPicker.addEventListener('change', (e) => {
 });
 
 displayNotes(searchInput ? searchInput.value : '');
+
