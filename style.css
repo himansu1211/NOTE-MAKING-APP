@@ -8,7 +8,7 @@
 }
 
 body {
-  background: linear-gradient(135deg, #e0eafc, #cfdef3);  /* Softer, brighter gradient */
+  background: linear-gradient(135deg, #e0eafc, #cfdef3); 
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@ body {
 .app-container {
   width: 100%;
   max-width: 850px;
-  background: rgba(255, 255, 255, 0.9);  /* More solid white background */
+  background: rgba(255, 255, 255, 0.9);  
   backdrop-filter: blur(15px);
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -197,13 +197,79 @@ header h1 {
   cursor: pointer;
 }
 
+.calculator {
+  margin-top: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#calc-display {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  text-align: right;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #f9f9f9;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-btn {
+  padding: 15px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.calc-btn:hover {
+  background: #e0e0e0;
+}
+
+.calc-btn.operator {
+  background: #6c63ff;
+  color: white;
+}
+
+.calc-btn.operator:hover {
+  background: #5a52d4;
+}
+
+.calc-btn.equal {
+  background: #00b894;
+  color: white;
+}
+
+.calc-btn.equal:hover {
+  background: #00976c;
+}
+
+.calc-btn.clear {
+  background: #ff4d4d;
+  color: white;
+}
+
+.calc-btn.clear:hover {
+  background: #e04141;
+}
+
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 20px;
 }
 
-/* Mobile responsiveness */
+
 @media (max-width: 768px) {
   body {
     padding: 20px 10px;
@@ -250,7 +316,7 @@ header h1 {
   background: white;
   padding: 18px;
   border-radius: 12px;
-  border-left: 4px solid #6c63ff;  /* Added accent border */
+  border-left: 4px solid #6c63ff;  
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
@@ -265,12 +331,12 @@ header h1 {
 
 .note-card h2 {
   font-size: 1.1rem;
-  color: #1a1a1a;  /* Darker text for better contrast */
+  color: #1a1a1a;  
   font-weight: 600;
 }
 
 .note-card p {
-  color: #2d2d2d;  /* Darker text for better contrast */
+  color: #2d2d2d;  
   margin-bottom: 8px;
 }
 
@@ -316,14 +382,14 @@ header h1 {
 .edit-btn:hover { background: #00976c; }
 .share-btn:hover { background: #076fd1; }
 
-/* Dark Mode Styles */
+
 body.dark {
-  background: linear-gradient(135deg, #2b5876, #4e4376);  /* Rich dark gradient */
+  background: linear-gradient(135deg, #2b5876, #4e4376);  
   color: #e0e0e0;
 }
 
 body.dark .app-container {
-  background: rgba(28, 28, 35, 0.95);  /* Darker, more solid background */
+  background: rgba(28, 28, 35, 0.95);  
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -334,11 +400,11 @@ body.dark .note-card {
 }
 
 body.dark .note-card h2 {
-  color: #ffffff;  /* Bright white text for dark theme */
+  color: #ffffff;  
 }
 
 body.dark .note-card p {
-  color: #e0e0e0;  /* Light grey text for dark theme */
+  color: #e0e0e0;  
 }
 
 body.dark input,
@@ -346,5 +412,44 @@ body.dark textarea {
   background: #1f1f28;
   color: #ffffff;
   border: 1px solid #3d3d4d;
+}
 
+body.dark .calculator {
+  background: #2d2d3a;
+}
+
+body.dark #calc-display {
+  background: #1f1f28;
+  color: #ffffff;
+  border: 1px solid #3d3d4d;
+}
+
+body.dark .calc-btn {
+  background: #3d3d4d;
+  color: #ffffff;
+}
+
+body.dark .calc-btn:hover {
+  background: #4d4d5d;
+}
+
+.note-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.note-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 5px 0;
+  display: block;
+}
+
+.input-actions button {
+  transition: background 0.3s, transform 0.2s;
+}
+
+.input-actions button:hover {
+  transform: translateY(-2px);
 }
