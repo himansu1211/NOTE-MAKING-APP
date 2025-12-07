@@ -7,7 +7,14 @@ const searchInput = document.getElementById('search');
 const darkToggle = document.getElementById('dark-mode-toggle');
 const exportBtn = document.getElementById('export-btn');
 const toggleDrawingBtn = document.getElementById('toggle-drawing-btn');
+const toggleCalculatorBtn = document.getElementById('toggle-calculator-btn');
+const addImageBtn = document.getElementById('add-image-btn');
+const addFileBtn = document.getElementById('add-file-btn');
+const imageInput = document.getElementById('image-input');
+const fileInput = document.getElementById('file-input');
 const drawingTools = document.getElementById('drawing-tools');
+const calculator = document.getElementById('calculator');
+const calcDisplay = document.getElementById('calc-display');
 const canvas = document.getElementById('drawing-canvas');
 const ctx = canvas.getContext('2d');
 const penTool = document.getElementById('pen-tool');
@@ -19,8 +26,8 @@ const colorPicker = document.getElementById('color-picker');
 const bgColorPicker = document.getElementById('bg-color-picker');
 const textColorPicker = document.getElementById('text-color-picker');
 
-let notes = JSON.parse(localStorage.getItem('notes')) || [];
-// ensure notes are objects with title/content/category/timestamp (defensive)
+let notes = JSON.parse(localStorage.getItem('notes')) || []
+
 notes = notes.map(n => {
   if (typeof n === 'object' && n !== null) {
     return {
@@ -37,7 +44,6 @@ notes = notes.map(n => {
 let editIndex = null;
 let searchTimeout = null;
 
-// Drawing variables
 let isDrawing = false;
 let currentTool = 'pen';
 let currentColor = '#000000';
@@ -45,6 +51,9 @@ let bgColor = '#ffffff';
 let paths = [];
 let undonePaths = [];
 let currentPath = [];
+
+let calcExpression = '';
+let calcResult = '';
 
 function saveNotes() {
   localStorage.setItem('notes', JSON.stringify(notes));
@@ -63,6 +72,11 @@ function displayNotes(filter = '') {
       const noteCard = document.createElement('div');
       noteCard.classList.add('note-card');
       const date = new Date(note.timestamp).toLocaleDateString();
+
+      
+      let processedContent = note.content || '';
+      processedContent = processedContent.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width: 100%; height: auto; border-radius: 8px; margin: 5px 0;">');
+
       noteCard.innerHTML = `
         <div class="action-btns">
           <button class="share-btn" data-index="${index}">🔗</button>
@@ -70,14 +84,14 @@ function displayNotes(filter = '') {
           <button class="delete-btn" data-index="${index}">🗑</button>
         </div>
         <h2>${note.title || 'Untitled'}</h2>
-        <p>${note.content || ''}</p>
+        <div class="note-content">${processedContent}</div>
         <small class="note-meta">${note.category ? note.category + ' • ' : ''}${date}</small>
       `;
-      // delegate buttons to avoid inline onclick
+      
       notesGrid.appendChild(noteCard);
     });
 
-  // add delegated event listeners on the grid (safe even if empty)
+  
   if (notesGrid) {
     notesGrid.querySelectorAll('.share-btn').forEach(btn => {
       btn.onclick = () => shareNote(Number(btn.dataset.index));
@@ -100,12 +114,12 @@ function addNote() {
   if (title === '' && content === '') return;
 
   if (editIndex !== null) {
-    // update existing note
+    
     notes[editIndex] = { ...notes[editIndex], title, content, category };
     editIndex = null;
     if (addBtn) addBtn.textContent = 'Add Note';
   } else {
-    // add new note
+    
     notes.push({ title, content, category, timestamp: Date.now() });
   }
 
@@ -144,7 +158,6 @@ function shareNote(index) {
       title: note.title || 'Note',
       text: text,
     }).catch(() => {
-      // fallback to clipboard if share fails
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text);
@@ -170,13 +183,11 @@ function shareNote(index) {
   }
 }
 
-// Debounced search
 function debouncedDisplayNotes() {
   clearTimeout(searchTimeout);
   searchTimeout = setTimeout(() => displayNotes(searchInput.value), 300);
 }
 
-// Event Listeners
 if (addBtn) addBtn.addEventListener('click', addNote);
 if (searchInput) searchInput.addEventListener('input', debouncedDisplayNotes);
 if (exportBtn) exportBtn.addEventListener('click', () => {
@@ -189,7 +200,6 @@ if (exportBtn) exportBtn.addEventListener('click', () => {
   linkElement.click();
 });
 
-// Dark Mode Toggle
 if (darkToggle) {
   darkToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark');
@@ -199,13 +209,11 @@ if (darkToggle) {
   });
 }
 
-// Load dark mode preference
 if (localStorage.getItem('darkMode') === 'true') {
   document.body.classList.add('dark');
   if (darkToggle) darkToggle.textContent = '☀';
 }
 
-// Drawing functions
 function startDrawing(e) {
   isDrawing = true;
   currentPath = [];
@@ -256,7 +264,6 @@ function redrawCanvas() {
     ctx.stroke();
   });
 
-  // Draw current path
   if (currentPath.length > 0) {
     ctx.strokeStyle = currentColor;
     ctx.lineWidth = currentTool === 'highlight' ? 10 : 2;
@@ -299,7 +306,64 @@ function toggleDrawing() {
   }
 }
 
-// Drawing event listeners
+function updateCalcDisplay() {
+  if (calcDisplay) calcDisplay.value = calcExpression || '0';
+}
+
+function handleCalcButton(value) {
+  if (value === 'C') {
+    calcExpression = '';
+    calcResult = '';
+  } else if (value === '=') {
+    try {
+      calcResult = eval(calcExpression);
+      calcExpression = calcResult.toString();
+    } catch (error) {
+      calcExpression = 'Error';
+    }
+  } else {
+    calcExpression += value;
+  }
+  updateCalcDisplay();
+}
+
+function toggleCalculator() {
+  const isVisible = calculator.style.display !== 'none';
+  calculator.style.display = isVisible ? 'none' : 'block';
+}
+
+
+function handleImageUpload(event) {
+  const files = Array.from(event.target.files);
+  files.forEach(file => {
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageData = e.target.result;
+        
+        if (contentInput) {
+          const currentContent = contentInput.value;
+          const imageTag = `\n[Image: ${file.name}]\n![${file.name}](${imageData})\n`;
+          contentInput.value = currentContent + imageTag;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+function handleFileUpload(event) {
+  const files = Array.from(event.target.files);
+  files.forEach(file => {
+    
+    if (contentInput) {
+      const currentContent = contentInput.value;
+      const fileTag = `\n[File: ${file.name} (${(file.size / 1024).toFixed(2)} KB)]\n`;
+      contentInput.value = currentContent + fileTag;
+    }
+  });
+}
+
 if (canvas) {
   canvas.addEventListener('mousedown', startDrawing);
   canvas.addEventListener('mousemove', draw);
@@ -337,9 +401,17 @@ if (bgColorPicker) bgColorPicker.addEventListener('change', (e) => {
 });
 if (textColorPicker) textColorPicker.addEventListener('change', (e) => {
   textColor = e.target.value;
-  // Apply text color to textarea if needed
+  
   if (contentInput) contentInput.style.color = textColor;
 });
 
-displayNotes(searchInput ? searchInput.value : '');
+document.querySelectorAll('.calc-btn').forEach(btn => {
+  btn.addEventListener('click', () => handleCalcButton(btn.dataset.value));
+});
 
+if (addImageBtn) addImageBtn.addEventListener('click', () => imageInput.click());
+if (addFileBtn) addFileBtn.addEventListener('click', () => fileInput.click());
+if (imageInput) imageInput.addEventListener('change', handleImageUpload);
+if (fileInput) fileInput.addEventListener('change', handleFileUpload);
+
+displayNotes(searchInput ? searchInput.value : '');
