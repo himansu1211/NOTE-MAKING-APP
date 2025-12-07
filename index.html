@@ -41,19 +41,44 @@
         <input type="color" id="text-color-picker" value="#000000">
       </div>
       <canvas id="drawing-canvas" width="800" height="400" style="display: none; border: 1px solid #ccc; border-radius: 10px;"></canvas>
+      <div class="calculator" id="calculator" style="display: none;">
+        <input type="text" id="calc-display" readonly>
+        <div class="calc-buttons">
+          <button class="calc-btn" data-value="7">7</button>
+          <button class="calc-btn" data-value="8">8</button>
+          <button class="calc-btn" data-value="9">9</button>
+          <button class="calc-btn operator" data-value="/">/</button>
+          <button class="calc-btn" data-value="4">4</button>
+          <button class="calc-btn" data-value="5">5</button>
+          <button class="calc-btn" data-value="6">6</button>
+          <button class="calc-btn operator" data-value="*">*</button>
+          <button class="calc-btn" data-value="1">1</button>
+          <button class="calc-btn" data-value="2">2</button>
+          <button class="calc-btn" data-value="3">3</button>
+          <button class="calc-btn operator" data-value="-">-</button>
+          <button class="calc-btn" data-value="0">0</button>
+          <button class="calc-btn" data-value=".">.</button>
+          <button class="calc-btn equal" data-value="=">=</button>
+          <button class="calc-btn operator" data-value="+">+</button>
+          <button class="calc-btn clear" data-value="C">C</button>
+        </div>
+      </div>
       <div class="input-actions">
         <button id="toggle-drawing-btn">🎨 Toggle Drawing</button>
+        <button id="toggle-calculator-btn">🧮 Toggle Calculator</button>
+        <button id="add-image-btn">🖼️ Add Image</button>
+        <button id="add-file-btn">📎 Add File</button>
         <button id="add-note-btn">Add Note</button>
         <button id="export-btn">Export Notes</button>
       </div>
+      <input type="file" id="image-input" accept="image/*" style="display: none;" multiple>
+      <input type="file" id="file-input" style="display: none;" multiple>
     </section>
 
     <section class="notes-grid" id="notes-grid">
-      <!-- Notes will appear here -->
     </section>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
